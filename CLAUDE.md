@@ -35,6 +35,7 @@ This is a template repository for building LaTeX documents with:
 
 ```bash
 make setup        # Check Docker and pull TeX Live image
+make init         # Interactive wizard to customize template
 make build        # Compile document (Docker)
 make build-draft  # Quick draft build (Docker)
 make watch        # Auto-rebuild on changes (Docker)
@@ -80,6 +81,7 @@ All scripts use uv inline dependencies (PEP 723) and run operations in Docker:
 | Script | Purpose |
 |--------|---------|
 | `scripts/setup.py` | Check Docker, pull image |
+| `scripts/init.py` | Interactive project customization wizard |
 | `scripts/build.py` | Compile documents (Docker) |
 | `scripts/clean.py` | Remove build artifacts |
 | `scripts/test.py` | Run tests (Docker) |
@@ -107,7 +109,7 @@ Optional:
 ## Adding Content
 
 1. **New chapter**: Create `src/chapters/NN-name.tex`, include in `main.tex`
-2. **New image**: Place in `assets/images/`, use `\includegraphics`
+2. **New image**: Place in `src/assets/images/`, use `\includegraphics`
 3. **New citation**: Add to `src/bibliography/references.bib`, use `\cite`
 4. **New package**: Add to `src/preamble/packages.tex`
 
@@ -136,6 +138,21 @@ Each directory contains a CLAUDE.md explaining:
 - Directory purpose
 - File conventions
 - How to add/modify content
+
+## Keeping This File Updated
+
+This CLAUDE.md is the primary reference for AI assistants and developers. Keep it in sync with:
+
+| Change | Update Here |
+|--------|-------------|
+| New make target | Quick Commands section |
+| New script in `scripts/` | Scripts table |
+| New directory | Directory Structure |
+| New package added | Included Packages |
+| Changed requirements | Requirements section |
+| New doc file | Documentation section |
+
+**Priority**: This file should be updated alongside any structural changes to the project.
 
 ## Development Guidelines
 

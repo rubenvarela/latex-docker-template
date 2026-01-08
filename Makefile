@@ -38,7 +38,7 @@ NC := \033[0m
 # -----------------------------------------------------------------------------
 # Phony Targets
 # -----------------------------------------------------------------------------
-.PHONY: help setup build test clean \
+.PHONY: help setup init build test clean \
         watch build-draft build-test lint validate \
         build-local ci act act-test info check-deps open docker-pull
 
@@ -51,6 +51,10 @@ setup:
 	@echo -e "$(BLUE)Setting up environment...$(NC)"
 	@./$(SCRIPTS_DIR)/setup.py
 	@echo -e "$(GREEN)✓ Setup complete!$(NC)"
+
+## init: Initialize project (customize template for your document)
+init:
+	@./$(SCRIPTS_DIR)/init.py
 
 ## build: Compile the main LaTeX document (using Docker)
 build:
@@ -199,6 +203,7 @@ help:
 	@echo ""
 	@echo "Primary Targets:"
 	@echo "  setup       Check Docker and pull the LaTeX image"
+	@echo "  init        Initialize project (customize for your document)"
 	@echo "  build       Compile the main document (Docker)"
 	@echo "  test        Run tests to verify setup (Docker)"
 	@echo "  clean       Remove all build artifacts"

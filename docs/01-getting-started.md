@@ -49,9 +49,21 @@ cd my-document
 make setup
 ```
 
-This will check that all required tools are installed and create necessary directories.
+This checks that Docker is available and pulls the LaTeX image.
 
-### 3. Build the Document
+### 3. Initialize Your Project
+
+```bash
+make init
+```
+
+This interactive wizard will:
+- Set your document title and author
+- Update PDF metadata
+- Optionally clear sample content
+- Optionally reset git history for a fresh start
+
+### 4. Build the Document
 
 ```bash
 make build
@@ -59,7 +71,7 @@ make build
 
 The compiled PDF will be in `build/main.pdf`.
 
-### 4. View the PDF
+### 5. View the PDF
 
 ```bash
 # macOS
@@ -70,11 +82,12 @@ make open
 
 ## Next Steps
 
-- Edit `src/main.tex` to change document metadata (title, author)
+After running `make init`:
 - Add content to `src/chapters/00-introduction.tex`
 - Create new chapters in `src/chapters/`
-- Add images to `assets/images/`
+- Add images to `src/assets/images/`
 - Update bibliography in `src/bibliography/references.bib`
+- Use `make watch` for auto-rebuild while editing
 
 ## Common Tasks
 
@@ -89,7 +102,7 @@ make open
 
 ### Add an Image
 
-1. Place the image in `assets/images/`
+1. Place the image in `src/assets/images/`
 2. Include in your document:
    ```latex
    \includegraphics[width=0.8\textwidth]{my-image.png}

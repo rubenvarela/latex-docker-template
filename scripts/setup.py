@@ -113,8 +113,8 @@ def create_directories() -> list[Path]:
     """Create required directories if they don't exist."""
     dirs = [
         Path("build"),
-        Path("assets/images"),
-        Path("assets/figures"),
+        Path("src/assets/images"),
+        Path("src/assets/figures"),
         Path("tests/fixtures"),
     ]
     created = []
@@ -233,8 +233,8 @@ def main() -> int:
     console.print("\n" + "=" * 50)
     console.print("\n[bold green]✓ Setup complete![/bold green]")
     console.print("\nYou can now run:")
+    console.print("  [cyan]make init[/cyan]       - Initialize project (customize for your document)")
     console.print("  [cyan]make build[/cyan]      - Build the document (Docker)")
-    console.print("  [cyan]make build-test[/cyan] - Build test document (Docker)")
     console.print("  [cyan]make watch[/cyan]      - Auto-rebuild on changes")
     console.print("  [cyan]make help[/cyan]       - See all available commands")
 
