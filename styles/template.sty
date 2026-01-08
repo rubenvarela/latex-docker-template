@@ -1,0 +1,121 @@
+% =============================================================================
+% template.sty - Main Template Style File
+% =============================================================================
+% This style file contains template-wide customizations.
+% Include additional style files here or define custom formatting.
+%
+% Usage: \usepackage{template} in your document preamble
+% =============================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{template}[2024/01/01 LaTeX Template Style]
+
+% -----------------------------------------------------------------------------
+% Package Options
+% -----------------------------------------------------------------------------
+\DeclareOption{draft}{
+    \PassOptionsToPackage{draft}{graphicx}
+}
+\DeclareOption{final}{
+    \PassOptionsToPackage{final}{graphicx}
+}
+\ProcessOptions\relax
+
+% -----------------------------------------------------------------------------
+% Color Palette
+% -----------------------------------------------------------------------------
+% Primary colors
+\definecolor{primary}{RGB}{0, 82, 147}        % Dark blue
+\definecolor{secondary}{RGB}{107, 107, 107}    % Gray
+\definecolor{accent}{RGB}{255, 122, 0}         % Orange
+
+% Semantic colors
+\definecolor{success}{RGB}{40, 167, 69}        % Green
+\definecolor{warning}{RGB}{255, 193, 7}        % Yellow
+\definecolor{danger}{RGB}{220, 53, 69}         % Red
+\definecolor{info}{RGB}{23, 162, 184}          % Cyan
+
+% Background colors
+\definecolor{lightgray}{RGB}{248, 249, 250}
+\definecolor{mediumgray}{RGB}{233, 236, 239}
+
+% -----------------------------------------------------------------------------
+% Custom Environments
+% -----------------------------------------------------------------------------
+
+% Highlight box environment
+\newenvironment{highlight}[1][Note]{%
+    \begin{center}
+    \begin{minipage}{0.9\textwidth}
+    \textbf{#1:}
+    \begin{itshape}
+}{%
+    \end{itshape}
+    \end{minipage}
+    \end{center}
+}
+
+% Warning box
+\newenvironment{warningbox}{%
+    \par\medskip
+    \begin{center}
+    \begin{minipage}{0.9\textwidth}
+    \textcolor{warning}{\rule{\linewidth}{1pt}}\\[0.5ex]
+    \textcolor{danger}{\textbf{Warning:}}
+}{%
+    \\[0.5ex]
+    \textcolor{warning}{\rule{\linewidth}{1pt}}
+    \end{minipage}
+    \end{center}
+    \par\medskip
+}
+
+% Info box
+\newenvironment{infobox}{%
+    \par\medskip
+    \begin{center}
+    \begin{minipage}{0.9\textwidth}
+    \textcolor{info}{\rule{\linewidth}{1pt}}\\[0.5ex]
+    \textcolor{info}{\textbf{Info:}}
+}{%
+    \\[0.5ex]
+    \textcolor{info}{\rule{\linewidth}{1pt}}
+    \end{minipage}
+    \end{center}
+    \par\medskip
+}
+
+% -----------------------------------------------------------------------------
+% Custom Commands
+% -----------------------------------------------------------------------------
+
+% Colored section titles (optional - uncomment to enable)
+% \titleformat{\section}
+%     {\normalfont\Large\bfseries\color{primary}}
+%     {\thesection}
+%     {1em}
+%     {}
+
+% Horizontal rule
+\newcommand{\hr}{\par\noindent\rule{\textwidth}{0.4pt}\par}
+
+% Vertical space shortcuts
+\newcommand{\vspacesmall}{\vspace{0.5em}}
+\newcommand{\vspacemedium}{\vspace{1em}}
+\newcommand{\vspacelarge}{\vspace{2em}}
+
+% -----------------------------------------------------------------------------
+% PDF Metadata Enhancement
+% -----------------------------------------------------------------------------
+% Override hypersetup with template colors
+\AtBeginDocument{%
+    \hypersetup{
+        linkcolor=primary,
+        citecolor=secondary,
+        urlcolor=accent
+    }
+}
+
+% =============================================================================
+% End of template.sty
+% =============================================================================

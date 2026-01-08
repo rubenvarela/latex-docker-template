@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "WebFetch(domain:*)",
+      "Bash(make test:*)",
+      "Bash(docker run:*)",
+      "Bash(echo:*)",
+      "Bash(make:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker-compose:*)",
+    ]
+  }
+}

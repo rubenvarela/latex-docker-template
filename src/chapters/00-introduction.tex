@@ -1,0 +1,58 @@
+% =============================================================================
+% 00-introduction.tex - Introduction Chapter
+% =============================================================================
+
+\section{Introduction}
+\label{sec:introduction}
+
+Welcome to the LaTeX Template Repository. This template provides a structured approach to writing LaTeX documents with modern tooling and best practices.
+
+\subsection{Purpose}
+
+This template is designed to:
+\begin{itemize}
+    \item Provide a clean, modular document structure
+    \item Include commonly used LaTeX packages pre-configured
+    \item Offer build automation via Make and Python scripts
+    \item Support continuous integration through GitHub Actions
+\end{itemize}
+
+\subsection{Getting Started}
+
+To get started with this template:
+
+\begin{enumerate}
+    \item Clone or use this repository as a template
+    \item Run \code{make setup} to verify your environment
+    \item Edit files in the \filepath{src/} directory
+    \item Run \code{make build} to compile your document
+\end{enumerate}
+
+\subsection{Document Structure}
+
+The document is organized into several directories:
+
+\begin{description}
+    \item[\filepath{src/}] Main LaTeX source files
+    \item[\filepath{src/preamble/}] Package imports, settings, and custom commands
+    \item[\filepath{src/chapters/}] Individual chapter files
+    \item[\filepath{src/bibliography/}] Bibliography files (\code{.bib})
+    \item[\filepath{assets/}] Images, figures, and other assets
+    \item[\filepath{styles/}] Custom style files (\code{.sty})
+\end{description}
+
+\subsection{Sample Content}
+
+This template demonstrates various LaTeX features. See the test document in \filepath{tests/test\_document.tex} for comprehensive examples of:
+
+\begin{itemize}
+    \item Mathematical equations and theorem environments
+    \item TikZ graphics and PGFPlots charts
+    \item Professional tables with \code{booktabs}
+    \item Code listings with syntax highlighting
+    \item Citations and cross-references
+\end{itemize}
+
+% =============================================================================
+% End of 00-introduction.tex
+% =============================================================================

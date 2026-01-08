@@ -1,0 +1,109 @@
+% =============================================================================
+% commands.tex - Custom Commands and Macros
+% =============================================================================
+% This file contains custom LaTeX commands and macros.
+% Add your own shortcuts and frequently used constructs here.
+% =============================================================================
+
+% -----------------------------------------------------------------------------
+% Theorem Environments (using amsthm)
+% -----------------------------------------------------------------------------
+\theoremstyle{plain}                % Italic body text
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}           % Normal body text
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+
+\theoremstyle{remark}               % Normal body text, italic title
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+
+% Proof environment is provided by amsthm automatically
+
+% -----------------------------------------------------------------------------
+% Math Shortcuts
+% -----------------------------------------------------------------------------
+% Common math operators
+\DeclareMathOperator{\E}{\mathbb{E}}        % Expected value
+\DeclareMathOperator{\Var}{Var}             % Variance
+\DeclareMathOperator{\Cov}{Cov}             % Covariance
+\DeclareMathOperator{\argmax}{arg\,max}     % Argmax
+\DeclareMathOperator{\argmin}{arg\,min}     % Argmin
+
+% Number sets
+\newcommand{\N}{\mathbb{N}}                 % Natural numbers
+\newcommand{\Z}{\mathbb{Z}}                 % Integers
+\newcommand{\Q}{\mathbb{Q}}                 % Rationals
+\newcommand{\R}{\mathbb{R}}                 % Reals
+\newcommand{\C}{\mathbb{C}}                 % Complex numbers
+
+% Common math shortcuts
+\newcommand{\abs}[1]{\left|#1\right|}       % Absolute value
+\newcommand{\norm}[1]{\left\|#1\right\|}    % Norm
+\newcommand{\inner}[2]{\langle#1,#2\rangle} % Inner product
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}   % Floor
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}      % Ceiling
+
+% Derivatives
+\newcommand{\dd}{\mathrm{d}}                % Differential d
+\newcommand{\dv}[2]{\frac{\dd #1}{\dd #2}}  % Derivative
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}} % Partial derivative
+
+% Vectors and matrices
+\renewcommand{\vec}[1]{\mathbf{#1}}         % Bold vectors
+\newcommand{\mat}[1]{\mathbf{#1}}           % Bold matrices
+
+% -----------------------------------------------------------------------------
+% Text Shortcuts
+% -----------------------------------------------------------------------------
+% Commonly used text in math mode
+\newcommand{\st}{\text{ s.t. }}             % "such that"
+\newcommand{\ie}{\textit{i.e.}}             % i.e.
+\newcommand{\eg}{\textit{e.g.}}             % e.g.
+\newcommand{\etc}{\textit{etc.}}            % etc.
+\newcommand{\etal}{\textit{et al.}}         % et al.
+
+% -----------------------------------------------------------------------------
+% Code and Technical Terms
+% -----------------------------------------------------------------------------
+% Inline code (for short snippets)
+\newcommand{\code}[1]{\texttt{#1}}
+
+% File paths
+\newcommand{\filepath}[1]{\texttt{#1}}
+
+% Keyboard keys
+\newcommand{\key}[1]{\fbox{\small\texttt{#1}}}
+
+% -----------------------------------------------------------------------------
+% Figure and Table Shortcuts
+% -----------------------------------------------------------------------------
+% Quick figure insertion
+% Usage: \quickfig{filename}{caption}{label}
+\newcommand{\quickfig}[3]{%
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.8\textwidth]{#1}
+        \caption{#2}
+        \label{fig:#3}
+    \end{figure}
+}
+
+% -----------------------------------------------------------------------------
+% TODO and Notes
+% -----------------------------------------------------------------------------
+% Note in margin (useful during drafting)
+\newcommand{\todo}[1]{\marginpar{\footnotesize\textcolor{red}{TODO: #1}}}
+\newcommand{\draftnote}[1]{\marginpar{\footnotesize\textcolor{blue}{Note: #1}}}
+
+% Inline todo (visible in text)
+\newcommand{\inlinetodo}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
+
+% =============================================================================
+% End of commands.tex
+% =============================================================================

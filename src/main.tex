@@ -1,0 +1,66 @@
+% =============================================================================
+% main.tex - Main Document Entry Point
+% =============================================================================
+% This is the main LaTeX file that ties together all document components.
+% Compile this file to generate the final PDF.
+% =============================================================================
+
+\documentclass[11pt, letterpaper]{article}
+
+% -----------------------------------------------------------------------------
+% Preamble
+% -----------------------------------------------------------------------------
+\input{src/preamble/packages}           % Package imports
+\input{src/preamble/settings}           % Document settings
+\input{src/preamble/commands}           % Custom commands and macros
+
+% -----------------------------------------------------------------------------
+% Document Metadata
+% -----------------------------------------------------------------------------
+\title{Document Title}
+\author{Author Name}
+\date{\today}
+
+% =============================================================================
+% Document Content
+% =============================================================================
+\begin{document}
+
+% -----------------------------------------------------------------------------
+% Front Matter
+% -----------------------------------------------------------------------------
+\maketitle
+
+\begin{abstract}
+This is a template document demonstrating the LaTeX template repository structure.
+Customize this abstract with your document's summary.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% -----------------------------------------------------------------------------
+% Main Content
+% -----------------------------------------------------------------------------
+\input{src/chapters/00-introduction}
+
+% Add more chapters as needed:
+% \input{src/chapters/01-chapter-name}
+% \input{src/chapters/02-chapter-name}
+
+% -----------------------------------------------------------------------------
+% Back Matter
+% -----------------------------------------------------------------------------
+
+% Print bibliography
+\printbibliography[heading=bibintoc, title={References}]
+
+% Appendices (uncomment if needed)
+% \appendix
+% \input{appendices/appendix-a}
+
+\end{document}
+
+% =============================================================================
+% End of main.tex
+% =============================================================================

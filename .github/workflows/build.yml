@@ -1,0 +1,211 @@
+# =============================================================================
+# GitHub Actions Workflow: Build LaTeX Document
+# =============================================================================
+# This workflow compiles LaTeX documents and uploads the resulting PDF.
+#
+# Triggers:
+#   - Push to main/master branch
+#   - Pull requests
+#   - Manual workflow dispatch
+#
+# Uses texlive/texlive Docker image for comprehensive LaTeX support.
+# =============================================================================
+
+name: Build LaTeX Document
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'styles/**'
+      - 'assets/**'
+      - '.github/workflows/build.yml'
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'styles/**'
+      - 'assets/**'
+      - '.github/workflows/build.yml'
+
+  workflow_dispatch:
+    inputs:
+      build_test_document:
+        description: 'Also build test document'
+        required: false
+        default: 'false'
+        type: boolean
+
+# Cancel in-progress runs for the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  MAIN_TEX: src/main.tex
+  TEST_TEX: tests/test_document.tex
+  BUILD_DIR: build
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Build Main Document
+  # ---------------------------------------------------------------------------
+  build:
+    name: Build Document
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest-full
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate timestamp
+        id: timestamp
+        run: echo "value=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: Get branch name
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "name=${{ github.head_ref }}" >> $GITHUB_OUTPUT
+          elif [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            # For tags, use the tag name
+            echo "name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          else
+            echo "name=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create build directory
+        run: mkdir -p ${{ env.BUILD_DIR }}
+
+      - name: Build main document
+        run: |
+          latexmk -pdf -shell-escape \
+            -interaction=nonstopmode \
+            -file-line-error \
+            -output-directory=${{ env.BUILD_DIR }} \
+            ${{ env.MAIN_TEX }}
+
+      - name: Rename PDF with branch and timestamp
+        run: |
+          mv ${{ env.BUILD_DIR }}/main.pdf \
+             "${{ env.BUILD_DIR }}/document-${{ steps.branch.outputs.name }}-${{ steps.timestamp.outputs.value }}.pdf"
+
+      - name: Upload to Release
+        if: env.ACT != 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          # Main branch: accumulate with timestamp, others: rolling (replace)
+          tag_name: ${{ (steps.branch.outputs.name == 'main' || steps.branch.outputs.name == 'master') && format('builds/{0}-{1}', steps.branch.outputs.name, steps.timestamp.outputs.value) || format('builds/{0}', steps.branch.outputs.name) }}
+          name: "Build: ${{ steps.branch.outputs.name }} @ ${{ steps.timestamp.outputs.value }}"
+          files: ${{ env.BUILD_DIR }}/document-*.pdf
+          prerelease: ${{ steps.branch.outputs.name != 'main' && steps.branch.outputs.name != 'master' }}
+        continue-on-error: true
+
+      - name: Upload PDF artifact
+        if: env.ACT != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: document-${{ steps.branch.outputs.name }}-${{ steps.timestamp.outputs.value }}
+          path: ${{ env.BUILD_DIR }}/document-*.pdf
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Upload build logs (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            ${{ env.BUILD_DIR }}/*.log
+            ${{ env.BUILD_DIR }}/*.blg
+          retention-days: 7
+
+  # ---------------------------------------------------------------------------
+  # Build Test Document (verifies all packages work)
+  # ---------------------------------------------------------------------------
+  build-test:
+    name: Build Test Document
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest-full
+
+    # Only run on main branch or when manually triggered with test enabled
+    if: |
+      github.ref == 'refs/heads/main' ||
+      github.ref == 'refs/heads/master' ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.build_test_document == 'true')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create build directory
+        run: mkdir -p ${{ env.BUILD_DIR }}
+
+      - name: Build test document
+        run: |
+          latexmk -pdf -shell-escape \
+            -interaction=nonstopmode \
+            -file-line-error \
+            -output-directory=${{ env.BUILD_DIR }} \
+            ${{ env.TEST_TEX }}
+
+      - name: Upload test PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-document
+          path: ${{ env.BUILD_DIR }}/test_document.pdf
+          retention-days: 14
+
+  # ---------------------------------------------------------------------------
+  # Release (on tag push)
+  # ---------------------------------------------------------------------------
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [build]
+
+    # Only run on version tags
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v4
+        with:
+          pattern: document-*
+          path: release/
+          merge-multiple: true
+
+      - name: Rename PDF with version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          # Find and rename the downloaded PDF (which already has branch/timestamp in name)
+          PDF_FILE=$(ls release/document-*.pdf | head -1)
+          mv "$PDF_FILE" "release/document-${VERSION}.pdf"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/*.pdf
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-beta') }}
+
+# =============================================================================
+# End of workflow
+# =============================================================================

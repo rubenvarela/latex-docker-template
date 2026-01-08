@@ -1,0 +1,33 @@
+[project]
+name = "latex-template"
+version = "0.1.0"
+description = "A template repository for building LaTeX documents with GitHub Actions CI/CD"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+keywords = ["latex", "template", "document", "typesetting"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Topic :: Text Processing :: Markup :: LaTeX",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "rich>=13.0.0",
+    "click>=8.0.0",
+    "watchdog>=3.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "rich>=13.0.0",
+    "click>=8.0.0",
+    "watchdog>=3.0.0",
+]

@@ -1,0 +1,68 @@
+# =============================================================================
+# .actrc - Act (GitHub Actions Local Runner) Configuration
+# =============================================================================
+# This file configures act for running GitHub Actions workflows locally.
+# See: https://github.com/nektos/act
+#
+# Usage:
+#   act                    # Run default event (push)
+#   act push               # Run push event
+#   act pull_request       # Run pull_request event
+#   act -W .github/workflows/build.yml  # Run specific workflow
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Platform Image Mapping
+# -----------------------------------------------------------------------------
+# Map GitHub runners to Docker images
+# Using catthehacker images which are more compatible with act
+
+# Medium-sized runner (recommended for most use cases)
+-P ubuntu-latest=catthehacker/ubuntu:act-latest
+
+# For better compatibility with TeXLive, uncomment:
+# -P ubuntu-latest=texlive/texlive:latest-full
+
+# Large runner with more tools (slower to pull, ~17GB)
+# -P ubuntu-latest=catthehacker/ubuntu:full-latest
+
+# -----------------------------------------------------------------------------
+# Architecture
+# -----------------------------------------------------------------------------
+# For Apple Silicon (M1/M2) Macs, uncomment:
+# --container-architecture linux/amd64
+
+# -----------------------------------------------------------------------------
+# Artifact Handling
+# -----------------------------------------------------------------------------
+# Directory for workflow artifacts
+--artifact-server-path /tmp/act-artifacts
+
+# -----------------------------------------------------------------------------
+# Secrets
+# -----------------------------------------------------------------------------
+# Load secrets from .secrets file (create this file locally, add to .gitignore)
+# Format: KEY=value (one per line)
+# --secret-file .secrets
+
+# -----------------------------------------------------------------------------
+# Environment Variables
+# -----------------------------------------------------------------------------
+# Pass environment variables to workflows
+# --env KEY=value
+
+# -----------------------------------------------------------------------------
+# Other Options
+# -----------------------------------------------------------------------------
+# Verbose output (uncomment for debugging)
+# --verbose
+
+# Dry run - show what would execute without running
+# -n
+
+# Reuse containers between runs (faster)
+# --reuse
+
+# =============================================================================
+# End of .actrc
+# =============================================================================

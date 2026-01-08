@@ -1,0 +1,101 @@
+% =============================================================================
+% settings.tex - Document Settings
+% =============================================================================
+% This file contains document-wide settings and configurations.
+% Modify these settings to customize the document appearance.
+% =============================================================================
+
+% -----------------------------------------------------------------------------
+% Header and Footer Configuration (fancyhdr)
+% -----------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}                          % Clear all headers/footers
+
+% Header configuration
+\fancyhead[L]{\leftmark}            % Section name on left
+\fancyhead[R]{\thepage}             % Page number on right
+
+% Footer configuration (uncomment to enable)
+% \fancyfoot[C]{\thepage}           % Centered page number
+% \fancyfoot[L]{Document Title}     % Left footer
+% \fancyfoot[R]{Author Name}        % Right footer
+
+% Header/footer rules
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Plain page style (for chapter/section starts)
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+% -----------------------------------------------------------------------------
+% Section Title Formatting (titlesec)
+% -----------------------------------------------------------------------------
+% Customize section appearance (format, spacing, etc.)
+% Uncomment and modify as needed
+
+% \titleformat{\section}
+%     {\normalfont\Large\bfseries}    % Format
+%     {\thesection}                    % Label
+%     {1em}                            % Sep between label and title
+%     {}                               % Before-code
+
+% \titlespacing*{\section}
+%     {0pt}                            % Left margin
+%     {3.5ex plus 1ex minus .2ex}      % Before spacing
+%     {2.3ex plus .2ex}                % After spacing
+
+% -----------------------------------------------------------------------------
+% Paragraph Settings
+% -----------------------------------------------------------------------------
+% parskip package handles paragraph spacing automatically
+% Additional tweaks can be made here if needed
+
+% \setlength{\parindent}{0pt}        % No paragraph indent (parskip handles this)
+% \setlength{\parskip}{1em}          % Space between paragraphs
+
+% -----------------------------------------------------------------------------
+% Float Placement Settings
+% -----------------------------------------------------------------------------
+% More permissive float placement
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.7}
+
+% -----------------------------------------------------------------------------
+% Cross-Reference Settings (cleveref)
+% -----------------------------------------------------------------------------
+% Customize how references appear
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{equation}{Equation}{Equations}
+\crefname{section}{Section}{Sections}
+\crefname{chapter}{Chapter}{Chapters}
+\crefname{theorem}{Theorem}{Theorems}
+\crefname{lemma}{Lemma}{Lemmas}
+
+% -----------------------------------------------------------------------------
+% Graphics Path
+% -----------------------------------------------------------------------------
+% Set paths where LaTeX looks for images (paths relative to workspace root)
+\graphicspath{
+    {src/assets/images/}
+    {src/assets/figures/}
+}
+
+% -----------------------------------------------------------------------------
+% Bibliography Settings
+% -----------------------------------------------------------------------------
+% Add bibliography file(s)
+\addbibresource{src/bibliography/references.bib}
+
+% =============================================================================
+% End of settings.tex
+% =============================================================================

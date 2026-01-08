@@ -1,0 +1,132 @@
+% =============================================================================
+% packages.tex - LaTeX Package Imports
+% =============================================================================
+% This file contains all package imports for the document.
+% Packages are organized by category for easy reference.
+% =============================================================================
+
+% -----------------------------------------------------------------------------
+% Document Structure & Formatting
+% -----------------------------------------------------------------------------
+\usepackage[
+    margin=1in,
+    headheight=14pt
+]{geometry}                         % Page layout and margins
+\usepackage{fancyhdr}               % Custom headers and footers
+\usepackage{titlesec}               % Section title customization
+\usepackage{parskip}                % Paragraph spacing (no indent, space between)
+
+% -----------------------------------------------------------------------------
+% Mathematics
+% -----------------------------------------------------------------------------
+\usepackage{amsmath}                % Essential math typesetting
+\usepackage{amssymb}                % Additional math symbols
+\usepackage{mathtools}              % Extended amsmath features
+\usepackage{amsthm}                 % Theorem environments
+
+% -----------------------------------------------------------------------------
+% Graphics & Figures
+% -----------------------------------------------------------------------------
+\usepackage{graphicx}               % Image inclusion and manipulation
+\usepackage{tikz}                   % Vector graphics
+\usepackage{pgfplots}               % Plots and charts
+\pgfplotsset{compat=1.18}           % PGFPlots compatibility
+\usepackage{subcaption}             % Subfigures and subcaptions
+\usepackage{float}                  % Improved float placement
+
+% TikZ libraries (add as needed)
+\usetikzlibrary{
+    arrows.meta,
+    positioning,
+    shapes,
+    calc,
+    backgrounds
+}
+
+% -----------------------------------------------------------------------------
+% Tables
+% -----------------------------------------------------------------------------
+\usepackage{booktabs}               % Professional table formatting
+\usepackage{longtable}              % Multi-page tables
+\usepackage{multirow}               % Multi-row cells
+
+% -----------------------------------------------------------------------------
+% References & Citations
+% -----------------------------------------------------------------------------
+\usepackage[
+    backend=biber,
+    style=numeric,
+    sorting=nyt,
+    maxbibnames=99
+]{biblatex}                         % Modern bibliography management
+\usepackage{hyperref}               % Clickable links and PDF bookmarks
+\usepackage{cleveref}               % Intelligent cross-referencing
+
+% Hyperref configuration
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    citecolor=green,
+    pdftitle={Document Title},
+    pdfauthor={Author Name},
+    pdfsubject={Subject},
+    pdfkeywords={keywords}
+}
+
+% -----------------------------------------------------------------------------
+% Typography & Fonts
+% -----------------------------------------------------------------------------
+\usepackage[T1]{fontenc}            % Proper font encoding
+\usepackage{microtype}              % Micro-typography improvements
+\usepackage{xcolor}                 % Color support
+
+% Define custom colors (extend as needed)
+\definecolor{codebackground}{RGB}{245, 245, 245}
+\definecolor{codecomment}{RGB}{0, 128, 0}
+\definecolor{codekeyword}{RGB}{0, 0, 255}
+\definecolor{codestring}{RGB}{163, 21, 21}
+
+% -----------------------------------------------------------------------------
+% Code Listings
+% -----------------------------------------------------------------------------
+\usepackage{listings}               % Code formatting
+
+% Default listings configuration
+\lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebackground},
+    commentstyle=\color{codecomment},
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=8pt,
+    frame=single,
+    framesep=3pt,
+    xleftmargin=15pt,
+    captionpos=b
+}
+
+% Minted for syntax highlighting (requires -shell-escape and Pygments)
+\usepackage{minted}
+
+% Default minted configuration
+\setminted{
+    bgcolor=codebackground,
+    fontsize=\small,
+    linenos=true,
+    breaklines=true,
+    tabsize=4,
+    frame=single,
+    framesep=2pt
+}
+
+% =============================================================================
+% End of packages.tex
+% =============================================================================
