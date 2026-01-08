@@ -131,6 +131,7 @@ jobs:
 
   # ---------------------------------------------------------------------------
   # Build Test Document (verifies all packages work)
+  # Only runs on the original template repository, not on forks/clones
   # ---------------------------------------------------------------------------
   build-test:
     name: Build Test Document
@@ -138,11 +139,14 @@ jobs:
     container:
       image: texlive/texlive:latest-full
 
-    # Only run on main branch or when manually triggered with test enabled
+    # Only run on the original template repo AND (main branch or manual trigger)
     if: |
-      github.ref == 'refs/heads/main' ||
-      github.ref == 'refs/heads/master' ||
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.build_test_document == 'true')
+      github.repository == 'rubenvarela/latex-docker-template' &&
+      (
+        github.ref == 'refs/heads/main' ||
+        github.ref == 'refs/heads/master' ||
+        (github.event_name == 'workflow_dispatch' && github.event.inputs.build_test_document == 'true')
+      )
 
     steps:
       - name: Checkout repository
