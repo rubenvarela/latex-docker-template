@@ -21,10 +21,13 @@ cd latex-template
 # 2. Verify your environment
 make setup
 
-# 3. Build the document
+# 3. Initialize your project (set title, author, etc.)
+make init
+
+# 4. Build the document
 make build
 
-# 4. Open the PDF (macOS)
+# 5. Open the PDF (macOS)
 make open
 ```
 
@@ -43,6 +46,7 @@ Optional:
 | Command | Description |
 |---------|-------------|
 | `make setup` | Check Docker and pull the LaTeX image (~4GB) |
+| `make init` | Interactive wizard to customize template (title, author) |
 | `make build` | Compile the main document (Docker) |
 | `make test` | Run tests to verify setup works (Docker) |
 | `make clean` | Remove build artifacts |

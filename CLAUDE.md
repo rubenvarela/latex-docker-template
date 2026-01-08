@@ -154,6 +154,15 @@ This CLAUDE.md is the primary reference for AI assistants and developers. Keep i
 
 **Priority**: This file should be updated alongside any structural changes to the project.
 
+## README.md
+
+The `README.md` file is the user-facing documentation for people who clone this template. It should be kept up to date with:
+- Quick start instructions
+- Feature highlights
+- Basic usage examples
+
+Unlike CLAUDE.md (for developers/AI), README.md is written for **end users** who want to use the template for their documents.
+
 ## Development Guidelines
 
 When making changes to this repository:
